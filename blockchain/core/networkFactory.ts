@@ -1,8 +1,9 @@
 import Network from './network';
 
 export enum NetworkType {
-  ETH,
+  ETH_GOERLI,
   BTC,
+  TRON,
 }
 
 class NetworkFactory {
@@ -10,14 +11,21 @@ class NetworkFactory {
     if (networkType === NetworkType.BTC) {
       return {
         caip2: '',
+        chainName: 'btc',
+        chainId: '',
+        rpcUrl: '',
+      };
+    } else if (networkType === NetworkType.ETH_GOERLI) {
+      return {
+        caip2: '',
         chainName: 'goerli',
         chainId: '',
         rpcUrl: '',
       };
-    } else if (networkType === NetworkType.ETH) {
+    } else if (networkType === NetworkType.TRON) {
       return {
         caip2: '',
-        chainName: 'goerli',
+        chainName: 'tron',
         chainId: '',
         rpcUrl: '',
       };

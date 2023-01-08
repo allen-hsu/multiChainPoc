@@ -1,27 +1,27 @@
 import Account from '../core/account';
 import ConnectorFactory from '../core/connectorFactory';
-import EthConnector from './ethConnector';
 import Network from '../core/network';
-import EthSigner from './ethSigner';
+import TronConnector from './tronConnector';
+import TronSigner from './tronSinger';
 
-class EthAccount implements Account<EthConnector, EthSigner> {
+class TronAccount implements Account<TronConnector, TronSigner> {
   address: string;
   balance: string = '';
-  connector?: EthConnector;
+  connector?: TronConnector;
   publicKey: string;
   privateKey: string;
-  signer: EthSigner;
+  signer: TronSigner;
   constructor(address: string, publicKey: string, privateKey: string) {
     this.address = address;
     this.privateKey = privateKey;
     this.publicKey = publicKey;
-    this.signer = new EthSigner();
+    this.signer = new TronSigner();
   }
 
   connect(network: Network): void {
     console.log(network);
-    this.connector = ConnectorFactory.factory<EthConnector>(
-      EthConnector,
+    this.connector = ConnectorFactory.factory<TronConnector>(
+      TronConnector,
       this,
       network,
     );
@@ -35,4 +35,4 @@ class EthAccount implements Account<EthConnector, EthSigner> {
   }
 }
 
-export default EthAccount;
+export default TronAccount;

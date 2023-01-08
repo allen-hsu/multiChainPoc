@@ -4,7 +4,7 @@ import Network from '../core/network';
 import BtcConnector from './btcConnector';
 import BtcSigner from './btcSigner';
 
-class BtcAccount implements Account<BtcConnector> {
+class BtcAccount implements Account<BtcConnector, BtcSigner> {
   address: string;
   balance: string = '';
   connector?: BtcConnector;
