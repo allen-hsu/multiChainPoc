@@ -9,13 +9,24 @@ class BtcConnector implements Connector {
     this.account = account;
     this.network = network;
   }
-  async getBalance() {
+  async getBlockNumber(): Promise<string> {
+    throw new Error('Method not implemented.');
+  }
+
+  async getBalance(): Promise<string> {
     if (this.account == null) {
       throw 'Not connect';
     }
     // DO some things
     return '123';
   }
+
+  // getBalance(): Promise<string> {
+  //   if (this.connector !== undefined) {
+  //     return this.connector.getBalance();
+  //   }
+  //   throw new Error('Connector not connect.');
+  // }
 }
 
 export default BtcConnector;

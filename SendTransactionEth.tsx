@@ -9,7 +9,7 @@ const SendTransactionEth = () => {
   const sendTransaction = () => {
     const account = AccountFactory.factory(ChainType.ETH) as EthAccount;
     //Dosome things
-    const tx = account.signer.sendTransaction(account, '', '');
+    const tx = account.signer.sendTransaction('', '');
   };
 
   return (

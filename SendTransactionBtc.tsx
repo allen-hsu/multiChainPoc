@@ -9,7 +9,7 @@ const SendTransactionBtc = () => {
   const sendTransaction = () => {
     const account = AccountFactory.factory(ChainType.BTC) as BtcAccount;
     //Dosome things
-    account.signer.sendTransaction(account, recipientAddress, amount, fee);
+    account.signer.sendTransaction(recipientAddress, amount, fee);
   };
   return (
     <View>

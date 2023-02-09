@@ -13,14 +13,16 @@ const HomeScreen = () => {
     const network = NetworkFactory.factory(context.networkType);
     account.connect(network);
     setAccountAddress(account.address);
-    account
-      .getBalance()
-      .then(res => {
-        setBalance(res);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    if (account.connector !== undefined) {
+      account.connector
+        .getBalance()
+        .then(res => {
+          setBalance(res);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
   }, [context]);
 
   return (
@@ -46,7 +48,7 @@ const HomeScreen = () => {
         onValueChange={(itemValue, itemIndex) =>
           context.setNetworkType(itemValue)
         }>
-        <Picker.Item label="ETH" value={NetworkType.ETH} />
+        <Picker.Item label="ETH" value={NetworkType.ETH_GOERLI} />
         <Picker.Item label="BTC" value={NetworkType.BTC} />
       </Picker>
     </View>

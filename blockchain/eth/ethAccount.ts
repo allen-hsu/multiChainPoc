@@ -3,10 +3,10 @@ import ConnectorFactory from '../core/connectorFactory';
 import EthConnector from './ethConnector';
 import Network from '../core/network';
 import EthSigner from './ethSigner';
+import SignerFactory from '../core/signerFactory';
 
 class EthAccount implements Account<EthConnector, EthSigner> {
   address: string;
-  balance: string = '';
   connector?: EthConnector;
   publicKey: string;
   privateKey: string;
@@ -15,7 +15,7 @@ class EthAccount implements Account<EthConnector, EthSigner> {
     this.address = address;
     this.privateKey = privateKey;
     this.publicKey = publicKey;
-    this.signer = new EthSigner();
+    this.signer = SignerFactory.factory<EthSigner>(EthSigner, this);
   }
 
   connect(network: Network): void {
@@ -25,13 +25,6 @@ class EthAccount implements Account<EthConnector, EthSigner> {
       this,
       network,
     );
-  }
-
-  getBalance(): Promise<string> {
-    if (this.connector !== undefined) {
-      return this.connector.getBalance();
-    }
-    throw new Error('Connector not connect.');
   }
 }
 

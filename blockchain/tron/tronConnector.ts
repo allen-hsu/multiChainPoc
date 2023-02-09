@@ -16,6 +16,10 @@ class TronConnector implements Connector {
       network.rpcUrl,
     );
   }
+
+  async getBlockNumber(): Promise<string> {
+    throw new Error('Method not implemented.');
+  }
   async getBalance() {
     if (this.account == null) {
       throw 'Not connect';

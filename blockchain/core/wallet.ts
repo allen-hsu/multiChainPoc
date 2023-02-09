@@ -23,6 +23,7 @@ class Wallet {
         '2Mu5PE4z7YefuVE3nVtcby5XjyDRGUnQ5Xh',
         'publicKey',
         this.getPrivateKey(path),
+        'P2WPKH',
       );
     } else if (chainType === ChainType.ETH) {
       // Hardcode, Just Do some test

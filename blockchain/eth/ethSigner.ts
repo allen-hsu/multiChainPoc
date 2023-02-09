@@ -3,10 +3,16 @@ import Signer from '../core/signer';
 import EthAccount from './ethAccount';
 
 class EthSigner implements Signer {
-  async sendTransaction(account: EthAccount, toAddress: string, value: string) {
+  account: EthAccount;
+
+  constructor(account: EthAccount) {
+    this.account = account;
+  }
+
+  async sendTransaction(toAddress: string, value: string) {
     const signer = new ethers.Wallet(
-      account.privateKey,
-      account.connector?.getProvider(),
+      this.account.privateKey,
+      this.account.connector?.provider,
     );
     const txReceipt = await signer.sendTransaction({
       to: toAddress,

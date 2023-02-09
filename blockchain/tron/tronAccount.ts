@@ -1,12 +1,12 @@
 import Account from '../core/account';
 import ConnectorFactory from '../core/connectorFactory';
 import Network from '../core/network';
+import SignerFactory from '../core/signerFactory';
 import TronConnector from './tronConnector';
 import TronSigner from './tronSinger';
 
 class TronAccount implements Account<TronConnector, TronSigner> {
   address: string;
-  balance: string = '';
   connector?: TronConnector;
   publicKey: string;
   privateKey: string;
@@ -15,7 +15,7 @@ class TronAccount implements Account<TronConnector, TronSigner> {
     this.address = address;
     this.privateKey = privateKey;
     this.publicKey = publicKey;
-    this.signer = new TronSigner();
+    this.signer = SignerFactory.factory<TronSigner>(TronSigner, this);
   }
 
   connect(network: Network): void {
@@ -25,13 +25,6 @@ class TronAccount implements Account<TronConnector, TronSigner> {
       this,
       network,
     );
-  }
-
-  getBalance(): Promise<string> {
-    if (this.connector !== undefined) {
-      return this.connector.getBalance();
-    }
-    throw new Error('Connector not connect.');
   }
 }
 

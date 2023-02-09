@@ -1,43 +1,36 @@
-import {Network} from 'bitcoinjs-lib';
 import Signer from '../core/signer';
 import TronAccount from './tronAccount';
 const TronWeb = require('tronweb');
 
 class TronSigner implements Signer {
-  tronWeb = new TronWeb({
-    fullHost: 'https://api.trongrid.io',
-    privateKey: 'aab',
-  });
-  async sendTransaction(
-    account: TronAccount,
-    network: Network,
-    recipientAddress: string,
-    amount: string,
-  ) {
-    const transaction = await this.tronWeb.transactionBuilder.sendTrx(
-      recipientAddress,
-      amount,
-      this.tronWeb.defaultAddress.hex,
+  account: TronAccount;
+
+  constructor(account: TronAccount) {
+    this.account = account;
+  }
+  async sendTransaction(recipientAddress: string, amount: string) {
+    const transaction =
+      await this.account.connector?.tronWeb.transactionBuilder.sendTrx(
+        recipientAddress,
+        amount,
+        this.account.connector?.tronWeb.defaultAddress.hex,
+      );
+    const signedTransaction = await this.account.connector?.tronWeb.trx.sign(
+      transaction,
     );
-    const signedTransaction = await this.tronWeb.trx.sign(transaction);
-    const receipt = await this.tronWeb.trx.sendRawTransaction(
-      signedTransaction,
-    );
+    const receipt =
+      await this.account.connector?.tronWeb.trx.sendRawTransaction(
+        signedTransaction,
+      );
     return receipt;
   }
 
-  signMessage = async (
-    account: TronAccount,
-    network: Network,
-    message: string,
-  ) => {
+  signMessage = async (account: TronAccount, message: string) => {
     const messageHash = TronWeb.sha3(Buffer.from(message));
-    const signature = await this.tronWeb.trx.sign(
+    const signature = await account.connector?.tronWeb.trx.sign(
       messageHash,
       account.privateKey,
     );
-
-    console.log(signature);
   };
 }
 

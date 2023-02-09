@@ -4,13 +4,11 @@ import Signer from './signer';
 
 interface Account<T extends Connector, U extends Signer> {
   address: string;
-  balance: string;
   connector?: T;
   signer: U;
   publicKey: string;
   privateKey: string;
   connect(network: Network): void;
-  getBalance(): Promise<string>;
 }
 
 export default Account;

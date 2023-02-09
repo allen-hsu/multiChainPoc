@@ -15,17 +15,16 @@ class EthConnector implements Connector {
       '',
     );
   }
-  async getBalance() {
+  async getBlockNumber(): Promise<string> {
+    throw new Error('Method not implemented.');
+  }
+  async getBalance(): Promise<string> {
     if (this.account == null) {
       throw 'Not connect';
     }
-    // const balance = await this.provider.getBalance(this.account.address);
+    const balance = await this.provider.getBalance(this.account.address);
     // do some things
-    return '456';
-  }
-
-  getProvider(): ethers.providers.JsonRpcProvider {
-    return this.provider;
+    return balance.toString();
   }
 }
 
