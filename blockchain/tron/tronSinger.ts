@@ -29,7 +29,7 @@ class TronSigner implements Signer {
     const messageHash = TronWeb.sha3(Buffer.from(message));
     const signature = await account.connector?.tronWeb.trx.sign(
       messageHash,
-      account.privateKey,
+      account.drivePrivateKey(),
     );
   };
 }

@@ -11,7 +11,7 @@ class EthSigner implements Signer {
 
   async sendTransaction(toAddress: string, value: string) {
     const signer = new ethers.Wallet(
-      this.account.privateKey,
+      this.account.drivePrivateKey(),
       this.account.connector?.provider,
     );
     const txReceipt = await signer.sendTransaction({
